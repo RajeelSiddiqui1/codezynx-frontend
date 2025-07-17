@@ -1,24 +1,24 @@
 import { Navigate, Route, Routes } from "react-router";
-
-import HomePage from "./pages/HomePage.jsx";
-import SignUpPage from "./pages/SignUpPage.jsx";
-import LoginPage from "./pages/LoginPage.jsx";
-import NotificationsPage from "./pages/NotificationsPage.jsx";
-import CallPage from "./pages/CallPage.jsx";
-import ChatPage from "./pages/ChatPage.jsx";
-import OnboardingPage from "./pages/OnboardingPage.jsx";
-import UserPage from "./pages/UserPage.jsx";
-import ProfilePage from "./pages/ProfilePage.jsx";
-import UploadPost from "./pages/UploadPost.jsx";
-import PostDetail from "./pages/PostDetail.jsx";
-import AIPromptPage from "./pages/AIPromptPage.jsx"
-
+import { lazy, Suspense } from "react";
+const HomePage = lazy(() => import("./pages/HomePage.jsx"));
+const SignUpPage = lazy(() => import("./pages/SignUpPage.jsx"));
+const LoginPage = lazy(() => import("./pages/LoginPage.jsx"));
+const NotificationsPage = lazy(() => import("./pages/NotificationsPage.jsx"));
+const CallPage = lazy(() => import("./pages/CallPage.jsx"));
+const ChatPage = lazy(() => import("./pages/ChatPage.jsx"));
+const OnboardingPage = lazy(() => import("./pages/OnboardingPage.jsx"));
+const UserPage = lazy(() => import("./pages/UserPage.jsx"));
+const ProfilePage = lazy(() => import("./pages/ProfilePage.jsx"));
+const UploadPost = lazy(() => import("./pages/UploadPost.jsx"));
+const PostDetail = lazy(() => import("./pages/PostDetail.jsx"));
+const AIPromptPage = lazy(() => import("./pages/AIPromptPage.jsx"));
+const Friends = lazy(() => import("./pages/Friends.jsx"));
 import { Toaster } from "react-hot-toast";
 import PageLoader from "./components/PageLoader.jsx";
 import useAuthUser from "./hooks/useAuthUser.js";
 import Layout from "./components/Layout.jsx";
 import { useThemeStore } from "./store/useThemeStore.js";
-import Friends from "./pages/Friends.jsx";
+
 
 const App = () => {
   const { isLoading, authUser } = useAuthUser();
@@ -31,6 +31,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen" data-theme={theme}>
+       <Suspense fallback={<PageLoader />}>
       <Routes>
         <Route
           path="/"
@@ -171,7 +172,7 @@ const App = () => {
           }
         />
       </Routes>
-
+</Suspense>
       <Toaster />
     </div>
   );
